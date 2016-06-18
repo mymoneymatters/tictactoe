@@ -9,7 +9,7 @@
 </body>
 
 <script type="text/javascript">
-    (function(root, toolkit)
+    (function(root, toolkit, DEF_FUNC)
     {
         root.appendChild(toolkit.createElement("span", {innerHTML : 'Hello World!'}, {fontSize : '20px'}));
     }(
@@ -31,6 +31,10 @@
 
                     return element;
                 }
+            },
+            function()
+            {
+                return;
             }
     ));
 </script>
