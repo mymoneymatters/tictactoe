@@ -19,12 +19,12 @@
                 {
                     var element = document.createElement(type);
 
-                    Object.keys(attributes).forEach(function(key)
+                    Object.keys(attributes || {}).forEach(function(key)
                     {
                         element[key] = attributes[key];
                     });
 
-                    Object.keys(styles).forEach(function(key)
+                    Object.keys(styles || {}).forEach(function(key)
                     {
                         element.style[key] = styles[key];
                     });
