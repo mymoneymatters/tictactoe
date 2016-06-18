@@ -5,7 +5,16 @@
 </head>
 
 <body>
-Hello World!
+<div id="root"></div>
 </body>
+
+<script type="text/javascript">
+    (function(root)
+    {
+        root.innerHTML = "Hello World!";
+    }(
+            document.getElementById("root")
+    ));
+</script>
 
 </html>
