@@ -11,7 +11,32 @@
 <script type="text/javascript">
     (function(root, toolkit, DEF_FUNC)
     {
-        root.appendChild(toolkit.createElement("span", {innerHTML : 'Hello World!'}, {fontSize : '20px'}));
+        (function(menu)
+        {
+            menu.onclick = function(option)
+            {
+                alert(option);
+            }
+        }(
+                (function()
+                {
+                    var handle = {};
+                    handle.onclick = DEF_FUNC;
+
+                    var menu = toolkit.createElement('div');
+                    root.appendChild(menu);
+
+                    var newGame = toolkit.createElement('span', {innerHTML : 'New Game'});
+                    menu.appendChild(newGame);
+
+                    newGame.onclick = function()
+                    {
+                        handle.onclick('New Game');
+                    };
+
+                    return handle;
+                }())
+        ));
     }(
             document.getElementById("root"),
             {
