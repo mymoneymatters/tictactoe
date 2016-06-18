@@ -9,11 +9,29 @@
 </body>
 
 <script type="text/javascript">
-    (function(root)
+    (function(root, toolkit)
     {
-        root.innerHTML = "Hello World!";
+        root.appendChild(toolkit.createElement("span", {innerHTML : 'Hello World!'}, {fontSize : '20px'}));
     }(
-            document.getElementById("root")
+            document.getElementById("root"),
+            {
+                createElement : function(type, attributes, styles)
+                {
+                    var element = document.createElement(type);
+
+                    Object.keys(attributes).forEach(function(key)
+                    {
+                        element[key] = attributes[key];
+                    });
+
+                    Object.keys(styles).forEach(function(key)
+                    {
+                        element.style[key] = styles[key];
+                    });
+
+                    return element;
+                }
+            }
     ));
 </script>
 
