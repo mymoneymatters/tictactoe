@@ -20,7 +20,7 @@
 <script type="text/javascript">
     (function(root, toolkit, DEF_FUNC)
     {
-        (function(menu)
+        (function(menu, board)
         {
             var humanVsComputer = menu.add('New Game - Human VS Computer');
             humanVsComputer.onclick = function()
@@ -33,6 +33,11 @@
             {
                 alert('Starting new Computer VS Computer Game...')
             };
+
+            board.onclick = function()
+            {
+                alert('Board Clicked');
+            }
         }(
                 /* menu */
                 (function(MenuItem)
@@ -102,7 +107,31 @@
 
                             return handle;
                         }
-                ))
+                )),
+                /* board */
+                (function()
+                {
+                    var board = {};
+
+                    board.element = root.appendChild(toolkit.createElement('div', false, {width : '500px', height : '500px'}));
+
+                    for (var i = 0; i < 9; i++) {
+                        board.element.appendChild(toolkit.createElement('div', false, {width : '33.333%', height : '33.333%', backgroundColor : 'rgb(' + (i * 25) + ',' + (i * 25) + ',' + (i * 25) + ')', float : 'left'}));
+                    }
+
+                    board.element.style.border = '1px dotted lightgray';
+
+                    board.element.onclick = function()
+                    {
+                        handle.onclick();
+                    };
+
+                    var handle = {
+                        onclick : DEF_FUNC
+                    };
+
+                    return handle;
+                }())
         ));
     }(
             /* root */
