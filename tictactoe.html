@@ -22,30 +22,87 @@
     {
         (function(menu)
         {
-            menu.onclick = function(option)
+            var humanVsComputer = menu.add('New Game - Human VS Computer');
+            humanVsComputer.onclick = function()
             {
-                alert(option);
-            }
+                alert('Starting New Human VS Computer Game...');
+            };
+
+            var computerVsComputer = menu.add('New Game - Computer VS Computer');
+            computerVsComputer.onclick = function()
+            {
+                alert('Starting new Computer VS Computer Game...')
+            };
         }(
-                (function()
                 /* menu */
+                (function(MenuItem)
                 {
-                    var handle = {};
-                    handle.onclick = DEF_FUNC;
+                    var menu = {};
 
-                    var menu = toolkit.createElement('div');
-                    root.appendChild(menu);
+                    menu.element = root.appendChild(toolkit.createElement('div'));
+                    menu.items = [];
 
-                    var newGame = toolkit.createElement('span', {innerHTML : 'New Game'});
-                    menu.appendChild(newGame);
-
-                    newGame.onclick = function()
+                    menu.update = function(current)
                     {
-                        handle.onclick('New Game');
+                        menu.items.forEach(function(menuItem)
+                        {
+                            if (menuItem.title == current) {
+                                menuItem.focus();
+                            }
+                            else {
+                                menuItem.unfocus();
+                            }
+                        });
                     };
 
-                    return handle;
-                }())
+                    return {
+                        add : function(title)
+                        {
+                            var item = new MenuItem(menu, title);
+                            menu.items.push(item);
+                            return item;
+                        }
+                    }
+                }(
+                        /* MenuItem */
+                        function(root, title)
+                        {
+                            var self = this;
+
+                            this.element = root.element.appendChild(toolkit.createElement('div', {innerHTML : title}));
+
+                            this.element.style.cursor = 'pointer';
+                            this.element.onmouseover = function()
+                            {
+                                self.element.classList.add('BUTTON_HOVER');
+                            };
+                            this.element.onmouseout = function()
+                            {
+                                self.element.classList.remove('BUTTON_HOVER');
+                            };
+
+                            this.element.onclick = function()
+                            {
+                                root.update(title);
+                                handle.onclick();
+                            };
+
+                            var handle = {
+                                title   : title,
+                                onclick : DEF_FUNC,
+                                focus   : function()
+                                {
+                                    self.element.classList.add('BUTTON_SELECTED');
+                                },
+                                unfocus : function()
+                                {
+                                    self.element.classList.remove('BUTTON_SELECTED');
+                                }
+                            };
+
+                            return handle;
+                        }
+                ))
         ));
     }(
             /* root */
