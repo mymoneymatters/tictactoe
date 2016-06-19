@@ -19,6 +19,7 @@
             }
         }(
                 (function()
+                /* menu */
                 {
                     var handle = {};
                     handle.onclick = DEF_FUNC;
@@ -38,7 +39,9 @@
                 }())
         ));
     }(
+            /* root */
             document.getElementById("root"),
+            /* toolkit */
             {
                 createElement : function(type, attributes, styles)
                 {
@@ -57,6 +60,7 @@
                     return element;
                 }
             },
+            /* DEF_FUNC */
             function()
             {
                 return;
